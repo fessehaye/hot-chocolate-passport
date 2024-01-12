@@ -76,6 +76,16 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
   const onMenuClick: MenuProps["onClick"] = (e) => {
     setCurrent(e.key);
   };
+
+  const clearFilters = () => {
+    setSearchText("");
+    setDietaryOptions([]);
+    setLocationOptions([]);
+    setStoreOptions([]);
+    setDateString("");
+    setCurrent("All");
+  };
+
   const filteredDrinks = drinks.filter((drink) => {
     const searchTextMatch =
       drink.drinkName.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -151,6 +161,8 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
             setStoreOptions={setStoreOptions}
             setLocationOptions={setLocationOptions}
             setDateString={setDateString}
+            dateString={dateString}
+            clearFilters={clearFilters}
           />
           <DrinkGrid drinks={filteredDrinks} showDrawer={showDrawer} />
         </div>

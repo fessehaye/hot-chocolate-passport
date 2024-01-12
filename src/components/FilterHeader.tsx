@@ -1,8 +1,9 @@
-import { DatePicker, Input, Select, Checkbox, type SelectProps } from "antd";
+import { DatePicker, Input, Select, Checkbox, Button, type SelectProps } from "antd";
 import React from "react";
 import type { Drink } from "./Home";
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import type { DatePickerProps } from 'antd';
+import dayjs from 'dayjs';
 
 interface FilterHeaderProps {
   drinks: Drink[];
@@ -14,7 +15,9 @@ interface FilterHeaderProps {
   setLocationOptions: (locationOptions: string[]) => void;
   storeOptions: string[];
   setStoreOptions: (storeOptions: string[]) => void;
+  dateString: string;
   setDateString: (dateString: string) => void;
+    clearFilters: () => void;
 }
 
 const FilterHeader: React.FC<FilterHeaderProps> = ({
@@ -28,6 +31,8 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
   storeOptions,
   setStoreOptions,
   setDateString,
+  clearFilters,
+  dateString,
 }) => {
   const allCities = drinks.reduce((acc, drink) => {
     return [...acc, ...drink.cities];
@@ -76,15 +81,19 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
           placeholder="Search"
           className="w-full lg:w-48 "
           value={searchText}
+          allowClear
           onChange={(e) => setSearchText(e.target.value)}
         />
+        <Button className="ml-2 hidden lg:block" onClick={() => clearFilters()}>
+            Clear Filters
+        </Button>
         <div className="lg:ml-auto flex gap-2 flex-wrap lg:flex-nowrap">
-          <DatePicker onChange={onDateChange} />
+          <DatePicker className="min-w-40 flex-1" onChange={onDateChange} value={dateString && dayjs(dateString)} />
           <Select
             mode="multiple"
             allowClear
             showSearch
-            className="min-w-48"
+            className="min-w-48 flex-1"
             placeholder="Locations"
             defaultValue={locationOptions}
             onChange={handleLocations}
@@ -94,12 +103,15 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             mode="multiple"
             allowClear
             showSearch
-            className="min-w-48"
+            className="min-w-48 flex-1"
             placeholder="Stores"
             defaultValue={storeOptions}
             onChange={handleStores}
             options={storeChoices}
           />
+          <Button className="block lg:hidden w-full" onClick={() => clearFilters()}>
+            Clear Filters
+        </Button>
         </div>
       </div>
       <div className="mt-4 flex items-center flex-wrap gap-y-2 lg:flex-nowrap">
