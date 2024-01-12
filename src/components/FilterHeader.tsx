@@ -88,7 +88,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             Clear Filters
         </Button>
         <div className="lg:ml-auto flex gap-2 flex-wrap lg:flex-nowrap">
-          <DatePicker className="min-w-40 flex-1" onChange={onDateChange} value={dateString && dayjs(dateString)} />
+          <DatePicker className="min-w-40 flex-1" onChange={onDateChange} value={dateString ? dayjs(dateString):  undefined} />
           <Select
             mode="multiple"
             allowClear
