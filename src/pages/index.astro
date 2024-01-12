@@ -1,0 +1,24 @@
+---
+import '@/styles/globals.css';
+import Home from "@/components/Home.tsx";
+import type { Drink } from "@/components/Home.tsx";
+const res = await fetch('https://gist.githubusercontent.com/fessehaye/3d2f70ef5fc983087612d25e9f5fa586/raw/4f4ad524afed1e485951f9481d0fe8535210c429/drinks.json')
+const data = await res.json() as Drink[];
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://rsms.me/">
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+		<title>Hot Chocolate Passport</title>
+	</head>
+	<body class="bg-slate-100">
+		<div class="container relative">
+			<Home drinks={data} client:only />
+		</div>
+	</body>
+</html>
