@@ -3,13 +3,15 @@ import React from "react";
 const Header: React.FC = () => {
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-4">
       <h2 className="text-2xl font-bold tracking-tight">
         Hot Chocolate Passport
       </h2>
-      <p className="text-muted-foreground">
-        Here's a list of hot chocolate drink for this years festival.
+      <p className="my-2">
+        Here's a list of hot chocolate drink for this years festival. 
+        You can visit the original site <a href="https://hotchocolatefest.com/list-of-flavours">here</a>!
       </p>
+      <p className="my-2">You can mark the drinks you've tried and save your favorites.</p>
     </div>
   );
 };
