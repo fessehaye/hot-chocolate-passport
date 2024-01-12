@@ -4,6 +4,7 @@ import type { Drink } from "./Home";
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import type { DatePickerProps } from 'antd';
 import dayjs from 'dayjs';
+import type { RangePickerProps } from 'antd/es/date-picker';
 
 interface FilterHeaderProps {
   drinks: Drink[];
@@ -34,6 +35,10 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
   clearFilters,
   dateString,
 }) => {
+  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+    return  current >= dayjs("02-14-2024") || current <= dayjs("01-13-2024");
+  };
+
   const allCities = drinks.reduce((acc, drink) => {
     return [...acc, ...drink.cities];
   }, [] as string[]);
@@ -88,7 +93,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             Clear Filters
         </Button>
         <div className="lg:ml-auto flex gap-2 flex-wrap lg:flex-nowrap w-full lg:w-auto">
-          <DatePicker className="min-w-40 flex-1" format={"MM-DD-YYYY"} onChange={onDateChange} value={dateString ? dayjs(dateString):  undefined} />
+          <DatePicker className="min-w-40 flex-1" format={"MM-DD-YYYY"} onChange={onDateChange} disabledDate={disabledDate} value={dateString ? dayjs(dateString):  undefined} />
           <Select
             mode="multiple"
             allowClear
