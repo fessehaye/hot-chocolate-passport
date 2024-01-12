@@ -101,11 +101,11 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
       key: "All",
     },
     {
-      label: "Favorites",
+      label: `Favorites (${favoriteDrinks.length})`,
       key: "Favorites",
     },
     {
-      label: "Drinks I've Tried",
+      label: `Drinks I've Tried (${drinksTried.length})`,
       key: "Tried",
     },
   ];
