@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, ConfigProvider } from "antd";
+import type { MenuProps } from 'antd';
 import DetailBox from "./DetailBox";
 import Header from "./Header";
 import DrinkGrid from "./DrinkGrid";
@@ -25,8 +26,6 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ drinks }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   const [open, setOpen] = useState(false);
   const [selectedDrink, setSelectedDrink] = useState<Drink>();
   const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);
@@ -132,7 +131,7 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
         />
 
         <div className="mb-20">
-          <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+          <Header />
           <Menu
             onClick={onMenuClick}
             selectedKeys={[current]}
@@ -150,7 +149,6 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
             locationOptions={locationOptions}
             setStoreOptions={setStoreOptions}
             setLocationOptions={setLocationOptions}
-            dateString={dateString}
             setDateString={setDateString}
           />
           <DrinkGrid drinks={filteredDrinks} showDrawer={showDrawer} />

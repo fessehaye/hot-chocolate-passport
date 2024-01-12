@@ -1,6 +1,8 @@
 import { DatePicker, Input, Select, Checkbox, type SelectProps } from "antd";
 import React from "react";
 import type { Drink } from "./Home";
+import type { CheckboxValueType } from 'antd/es/checkbox/Group';
+import type { DatePickerProps } from 'antd';
 
 interface FilterHeaderProps {
   drinks: Drink[];
@@ -12,7 +14,6 @@ interface FilterHeaderProps {
   setLocationOptions: (locationOptions: string[]) => void;
   storeOptions: string[];
   setStoreOptions: (storeOptions: string[]) => void;
-  dateString: string;
   setDateString: (dateString: string) => void;
 }
 
@@ -26,7 +27,6 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
   setLocationOptions,
   storeOptions,
   setStoreOptions,
-  dateString,
   setDateString,
 }) => {
   const allCities = drinks.reduce((acc, drink) => {
@@ -64,7 +64,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
     setStoreOptions(value);
   };
 
-  const onDateChange: DatePickerProps["onChange"] = (date, dateString) => {
+  const onDateChange: DatePickerProps["onChange"] = (_:any, dateString:string) => {
     setDateString(dateString);
   };
 
