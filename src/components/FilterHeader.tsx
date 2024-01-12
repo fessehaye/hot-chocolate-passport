@@ -95,7 +95,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             showSearch
             className="min-w-48 flex-1"
             placeholder="Location Areas"
-            defaultValue={locationOptions}
+            value={locationOptions}
             onChange={handleLocations}
             options={locationChoices}
           />
@@ -105,7 +105,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             showSearch
             className="min-w-48 flex-1"
             placeholder="Stores"
-            defaultValue={storeOptions}
+            value={storeOptions}
             onChange={handleStores}
             options={storeChoices}
           />
