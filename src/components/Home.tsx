@@ -79,7 +79,8 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
   const filteredDrinks = drinks.filter((drink) => {
     const searchTextMatch =
       drink.drinkName.toLowerCase().includes(searchText.toLowerCase()) ||
-      drink.storeName.toLowerCase().includes(searchText.toLowerCase());
+      drink.storeName.toLowerCase().includes(searchText.toLowerCase()) ||
+      drink.description.toLowerCase().includes(searchText.toLowerCase());
 
     const dietaryOptionsMatch =
       dietaryOptions.length === 0 ||
