@@ -75,11 +75,11 @@ const DetailBox: React.FC<DetailBoxProps> = ({
           <div>
             <Space size={[0, 8]} wrap>
               {selectedDrink?.glutenFreeOption && (
-                <Tag>Store has Gluten Options</Tag>
+                <Tag color="processing">Store has Gluten Options</Tag>
               )}
-              {selectedDrink?.veganOption && <Tag>Store has Vegan Options</Tag>}
+              {selectedDrink?.veganOption && <Tag color="processing">Store has Vegan Options</Tag>}
               {selectedDrink?.dairyFreeOption && (
-                <Tag>Store has Dairy Options</Tag>
+                <Tag color="processing">Store has Dairy Options</Tag>
               )}
             </Space>
           </div>
