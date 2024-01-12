@@ -16,6 +16,7 @@ const DrinkGrid: React.FC<DrinkGridProps> = ({ drinks, showDrawer }) => {
 
   return (
     <div className="w-full">
+       {drinks.length > 0 && <p className="my-4">{drinks.length} {drinks.length == 1 ? "Drink": "Drinks"} Available</p>}
       <Row gutter={[16, 16]}>
         {drinks.map((drink) => {
           const startDate = new Date(drink.startDate);
@@ -38,7 +39,7 @@ const DrinkGrid: React.FC<DrinkGridProps> = ({ drinks, showDrawer }) => {
                 </div>
                 <Space size={[0, 8]} wrap>
                   {drink.cities.map((city: string) => (
-                    <Tag color="red" key={city}>
+                    <Tag color="purple" key={city}>
                       {city}
                     </Tag>
                   ))}
