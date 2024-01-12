@@ -31,6 +31,7 @@ const DrinkGrid: React.FC<DrinkGridProps> = ({ drinks, showDrawer }) => {
               <Card
                 title={` #${drink.id} - ${drink.drinkName.toLowerCase()}`}
                 onClick={() => showDrawer(drink)}
+                hoverable
                 className="cursor-pointer h-full capitalize"
               >
                 <div className="mb-2 font-bold">{drink.storeName}</div>
