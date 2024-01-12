@@ -169,7 +169,7 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
 
   return (
     <ConfigProvider>
-      <div className="h-full w-full flex-1 flex-col space-y-8 flex">
+      <div className="h-full w-full flex-1 flex-col flex">
         <FloatButton.Group shape="circle">
           <FloatButton tooltip={<div>Share Data</div>} onClick={showModal}/>
           <FloatButton.BackTop />
@@ -200,7 +200,7 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
           setDrinksTried={setDrinksTried}
         />
 
-        <div className="mb-20">
+        <div className="mb-40">
           <Header />
           <Menu
             onClick={onMenuClick}
