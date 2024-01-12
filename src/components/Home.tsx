@@ -149,7 +149,6 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
       dateString.length === 0 ||
       (new Date(drink.startDate) <= new Date(dateString) &&
         new Date(drink.endDate) >= new Date(dateString));
-
     const favoriteDrinksMatch =
       current === "All" ||
       (current === "Favorites" && favoriteDrinks.includes(drink.id)) ||
