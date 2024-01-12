@@ -74,7 +74,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
   };
 
   return (
-    <div className="sticky top-0 z-10 py-8 bg-slate-100 mb-4">
+    <div className="lg:sticky top-0 z-10 py-8 bg-slate-100 mb-4">
       <div className="flex items-center flex-wrap gap-y-2 lg:flex-nowrap">
         <Input
           type="text"
@@ -87,14 +87,14 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
         <Button className="ml-2 hidden lg:block" onClick={() => clearFilters()}>
             Clear Filters
         </Button>
-        <div className="lg:ml-auto flex gap-2 flex-wrap lg:flex-nowrap">
+        <div className="lg:ml-auto flex gap-2 flex-wrap lg:flex-nowrap w-full lg:w-auto">
           <DatePicker className="min-w-40 flex-1" onChange={onDateChange} value={dateString ? dayjs(dateString):  undefined} />
           <Select
             mode="multiple"
             allowClear
             showSearch
             className="min-w-48 flex-1"
-            placeholder="Locations"
+            placeholder="Location Areas"
             defaultValue={locationOptions}
             onChange={handleLocations}
             options={locationChoices}
