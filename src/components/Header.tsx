@@ -8,7 +8,7 @@ const Header: React.FC = () => {
         Hot Chocolate Passport
       </h2>
       <p className="my-2">
-        Here's a list of hot chocolate drink for this years festival. 
+        Here's a list of hot chocolate drinks for this year's festival. 
         You can visit the original site <a href="https://hotchocolatefest.com/list-of-flavours">here</a>!
       </p>
       <p className="my-2">You can mark the drinks you've tried and save your favorites.</p>
