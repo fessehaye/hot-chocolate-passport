@@ -28,7 +28,6 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ drinks }) => {
   // const params = new URLSearchParams(window.location.search);
-  console.log(drinks)
   const [open, setOpen] = useState(false);
   const [selectedDrink, setSelectedDrink] = useState<Drink>();
   const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);

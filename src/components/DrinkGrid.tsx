@@ -14,9 +14,14 @@ const DrinkGrid: React.FC<DrinkGridProps> = ({ drinks, showDrawer }) => {
     return <Result title="No drinks available :(" />;
   }
 
+  const stores = drinks.reduce((acc, drink) => {
+    return [...acc, drink.storeName];
+  }, [] as string[]);
+  const uniqueStores = [...new Set(stores)];
+
   return (
     <div className="w-full">
-       {drinks.length > 0 && <p className="my-4">{drinks.length} {drinks.length == 1 ? "Drink": "Drinks"} Available</p>}
+       {drinks.length > 0 && <p className="my-4">{drinks.length} {drinks.length == 1 ? "Drink": "Drinks"} Available within {uniqueStores.length} store{uniqueStores.length > 1 && 's'}.</p>}
       <Row gutter={[16, 16]}>
         {drinks.map((drink) => {
           const startDate = new Date(drink.startDate);
