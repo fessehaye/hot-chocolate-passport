@@ -43,7 +43,7 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
     const params = new URLSearchParams(window.location.search);
     params.set("favoriteDrinks", JSON.stringify(favoriteDrinks));
     params.set("drinksTried", JSON.stringify(drinksTried));
-    return `${window.location.href}${params.toString()}`;
+    return `${window.location.href}?${params.toString()}`;
   }
 
   const showModal = () => {
