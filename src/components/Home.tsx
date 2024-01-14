@@ -5,7 +5,6 @@ import DetailBox from "./DetailBox";
 import Header from "./Header";
 import DrinkGrid from "./DrinkGrid";
 import FilterHeader from "./FilterHeader";
-import { d } from "dist/_astro/index.pRMYTCNx";
 
 export interface Drink {
   id: number;
