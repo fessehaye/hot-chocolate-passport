@@ -5,6 +5,7 @@ import DetailBox from "./DetailBox";
 import Header from "./Header";
 import DrinkGrid from "./DrinkGrid";
 import FilterHeader from "./FilterHeader";
+import { d } from "dist/_astro/index.pRMYTCNx";
 
 export interface Drink {
   id: number;
@@ -19,6 +20,7 @@ export interface Drink {
   veganOption: boolean;
   glutenFreeOption: boolean;
   dairyFreeOption: boolean;
+  lateOption?: boolean;
 }
 
 interface HomeProps {
@@ -27,6 +29,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ drinks }) => {
   // const params = new URLSearchParams(window.location.search);
+  console.log(drinks)
   const [open, setOpen] = useState(false);
   const [selectedDrink, setSelectedDrink] = useState<Drink>();
   const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);
@@ -136,7 +139,9 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
       (dietaryOptions.includes("Stores with Gluten Free Options") &&
         drink.glutenFreeOption) ||
       (dietaryOptions.includes("Stores with Dairy Free Options") &&
-        drink.dairyFreeOption);
+        drink.dairyFreeOption) ||
+        (dietaryOptions.includes("Stores that are open later") &&
+          drink?.lateOption)
 
     const locationOptionsMatch =
       locationOptions.length === 0 ||

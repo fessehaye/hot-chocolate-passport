@@ -66,6 +66,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
     "Stores with Vegan Options",
     "Stores with Dairy Free Options",
     "Stores with Gluten Free Options",
+    "Stores that are open later",
   ];
   const handleLocations = (value: string[]) => {
     setLocationOptions(value);
