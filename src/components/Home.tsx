@@ -5,6 +5,7 @@ import DetailBox from "./DetailBox";
 import Header from "./Header";
 import DrinkGrid from "./DrinkGrid";
 import FilterHeader from "./FilterHeader";
+import TransferData from "./TransferData";
 
 export interface Drink {
   id: number;
@@ -32,34 +33,13 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
   const [selectedDrink, setSelectedDrink] = useState<Drink>();
   const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);
   const [drinksTried, setDrinksTried] = useState<number[]>([]);
+  const [sharedFavoriteDrinks, setSharedFavoriteDrinks] = useState<number[]>([]);
+  const [sharedDrinksTried, setSharedDrinksTried] = useState<number[]>([]);
   const [searchText, setSearchText] = useState("");
   const [dietaryOptions, setDietaryOptions] = useState<string[]>([]);
   const [locationOptions, setLocationOptions] = useState<string[]>([]);
   const [storeOptions, setStoreOptions] = useState<string[]>([]);
   const [dateString, setDateString] = useState("");
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const getShareableLink = () => {
-    const params = new URLSearchParams(window.location.search);
-    params.set("favoriteDrinks", JSON.stringify(favoriteDrinks));
-    params.set("drinksTried", JSON.stringify(drinksTried));
-    return `${window.location.href}?${params.toString()}`;
-  }
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-    navigator.clipboard.writeText(getShareableLink());
-    console.log("copied");
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     const storedFavorites = localStorage.getItem("favoriteDrinks");
@@ -67,6 +47,8 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
     const params = new URLSearchParams(window.location.search);
     const storedFavoriteDrinks = params.get("favoriteDrinks");
     const storedDrinksTriedFromURL = params.get("drinksTried");
+    const sharedFavoriteDrinks = params.get("sharedfavoriteDrinks");
+    const sharedDrinksTriedFromURL = params.get("shareddrinksTried");
     if (storedFavoriteDrinks) {
       localStorage.setItem("favoriteDrinks", storedFavoriteDrinks);
     }
@@ -82,6 +64,12 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
     }
     if (storedDrinksTried) {
       setDrinksTried(JSON.parse(storedDrinksTried));
+    }
+    if(sharedFavoriteDrinks){
+      setSharedFavoriteDrinks(JSON.parse(sharedFavoriteDrinks));
+    }
+    if(sharedDrinksTriedFromURL){
+      setSharedDrinksTried(JSON.parse(sharedDrinksTriedFromURL));
     }
   }, []);
 
@@ -106,10 +94,23 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
       key: "Favorites",
     },
     {
-      label: `Drinks I've Tried (${drinksTried.length})`,
+      label: `Drinks You Tried (${drinksTried.length})`,
       key: "Tried",
     },
   ];
+
+  if(sharedFavoriteDrinks.length > 0){
+    items.unshift({
+      label: `Shared Favorites (${sharedFavoriteDrinks.length})`,
+      key: "SharedFavorites",
+    });
+  }
+  if(sharedDrinksTried.length > 0){
+    items.unshift({
+      label: `Shared Drinks Others Tried (${sharedDrinksTried.length})`,
+      key: "SharedTried",
+    });
+  }
 
   const onMenuClick: MenuProps["onClick"] = (e) => {
     setCurrent(e.key);
@@ -155,7 +156,9 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
     const favoriteDrinksMatch =
       current === "All" ||
       (current === "Favorites" && favoriteDrinks.includes(drink.id)) ||
-      (current === "Tried" && drinksTried.includes(drink.id));
+      (current === "Tried" && drinksTried.includes(drink.id)) ||
+      (current === "SharedFavorites" && sharedFavoriteDrinks.includes(drink.id)) ||
+      (current === "SharedTried" && sharedDrinksTried.includes(drink.id));
 
     return (
       searchTextMatch &&
@@ -172,26 +175,10 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
   return (
     <ConfigProvider>
       <div className="h-full w-full flex-1 flex-col flex">
-        <FloatButton.Group shape="circle">
-          <FloatButton tooltip={<div>Share Data</div>} onClick={showModal}/>
-          <FloatButton.BackTop />
-        </FloatButton.Group>
-        <Modal 
-          title="Share Data"
-          open={isModalOpen}
-          onCancel={handleCancel}
-          footer={[
-            <Button key="submit" onClick={handleOk}>
-              Copy To Clipboard
-            </Button>]
-            }
-        >
-          <p>
-            If you would like to transfers your bookmarks to another device,
-             just copy this URL to the new browser.
-          </p>
-          <p>{getShareableLink()}</p>
-        </Modal>
+        <TransferData
+          favoriteDrinks={favoriteDrinks}
+          drinksTried={drinksTried}
+        />
         <DetailBox
           selectedDrink={selectedDrink}
           open={open}
