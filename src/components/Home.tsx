@@ -107,7 +107,7 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
   }
   if(sharedDrinksTried.length > 0){
     items.unshift({
-      label: `Shared Drinks Others Tried (${sharedDrinksTried.length})`,
+      label: `Shared Drinks Tried (${sharedDrinksTried.length})`,
       key: "SharedTried",
     });
   }
