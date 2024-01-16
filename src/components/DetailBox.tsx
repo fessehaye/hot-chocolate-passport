@@ -166,6 +166,7 @@ const DetailBox: React.FC<DetailBoxProps> = ({
             size="large"
             className="flex items-center"
             href={selectedDrink?.link}
+            target="_blank"
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
