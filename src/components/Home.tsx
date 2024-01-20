@@ -147,7 +147,7 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
         drink.glutenFreeOption) ||
       (dietaryOptions.includes("Stores with Dairy Free Options") &&
         drink.dairyFreeOption) ||
-        (dietaryOptions.includes("Stores that are open later") &&
+        (dietaryOptions.includes("Stores that are open after 5pm") &&
           drink?.lateOption)
 
     const locationOptionsMatch =
