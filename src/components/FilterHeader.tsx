@@ -89,18 +89,20 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
           value={searchText}
           allowClear
           onChange={(e) => setSearchText(e.target.value)}
+          onPressEnter={(e) => e.target.blur()}
         />
         <Button className="ml-2 hidden lg:block" onClick={() => clearFilters()}>
             Clear All Filters
         </Button>
         <div className="lg:ml-auto flex gap-2 flex-wrap lg:flex-nowrap w-full lg:w-auto">
-          <DatePicker className="min-w-40 flex-1" format={"MM-DD-YYYY"} onChange={onDateChange} disabledDate={disabledDate} value={dateString ? dayjs(dateString):  undefined} />
+          <DatePicker className="min-w-40 flex-1" format={"MM-DD-YYYY"} inputReadOnly onChange={onDateChange} disabledDate={disabledDate} value={dateString ? dayjs(dateString):  undefined} />
           <Select
             mode="multiple"
             allowClear
             showSearch
             className="min-w-48 flex-1"
             placeholder="Location Areas"
+            onPressEnter={(e) => e.target.blur()}
             value={locationOptions}
             onChange={handleLocations}
             options={locationChoices}
@@ -111,6 +113,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             showSearch
             className="min-w-48 flex-1"
             placeholder="Stores"
+            onPressEnter={(e) => e.target.blur()}
             value={storeOptions}
             onChange={handleStores}
             options={storeChoices}
