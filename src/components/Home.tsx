@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, ConfigProvider,FloatButton,Modal,Button  } from "antd";
+import { Menu, ConfigProvider  } from "antd";
 import type { MenuProps } from 'antd';
 import DetailBox from "./DetailBox";
 import Header from "./Header";

@@ -88,8 +88,8 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
           className="w-full lg:w-48 "
           value={searchText}
           allowClear
-          onChange={(e) => setSearchText(e.target.value)}
-          onPressEnter={(e) => e.target.blur()}
+          onChange={(e:any) => setSearchText(e.target.value)}
+          onPressEnter={(e:any) => e.target.blur()}
         />
         <Button className="ml-2 hidden lg:block" onClick={() => clearFilters()}>
             Clear All Filters
@@ -102,7 +102,6 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             showSearch
             className="min-w-48 flex-1"
             placeholder="Location Areas"
-            onPressEnter={(e) => e.target.blur()}
             value={locationOptions}
             onChange={handleLocations}
             options={locationChoices}
@@ -113,7 +112,6 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             showSearch
             className="min-w-48 flex-1"
             placeholder="Stores"
-            onPressEnter={(e) => e.target.blur()}
             value={storeOptions}
             onChange={handleStores}
             options={storeChoices}
