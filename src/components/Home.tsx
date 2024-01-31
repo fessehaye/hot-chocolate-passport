@@ -90,12 +90,12 @@ const Home: React.FC<HomeProps> = ({ drinks }) => {
       key: "All",
     },
     {
-      label: `Favorites (${favoriteDrinks.length})`,
-      key: "Favorites",
-    },
-    {
       label: `Drinks You Tried (${drinksTried.length})`,
       key: "Tried",
+    },
+    {
+      label: `Favorites (${favoriteDrinks.length})`,
+      key: "Favorites",
     },
   ];
 
