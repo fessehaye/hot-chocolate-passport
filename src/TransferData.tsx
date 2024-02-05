@@ -1,4 +1,5 @@
-import { FloatButton, Modal, Button } from "antd";
+import { FloatButton, Modal, Button, Checkbox } from "antd";
+import { CheckboxValueType } from "antd/es/checkbox/Group";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -11,9 +12,13 @@ const TransferData: React.FC<TransferDataProps> = ({
   favoriteDrinks,
   drinksTried,
 }) => {
+  const plainOptions = ["Include Drinks Tried", "Include Favorites"];
+
   // Add your component logic here
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalState, setModalState] = useState("transfer");
+  const [checkedList, setCheckedList] =
+    useState<CheckboxValueType[]>(plainOptions);
   const location = useLocation();
 
   const getTransferLink = () => {
@@ -27,8 +32,12 @@ const TransferData: React.FC<TransferDataProps> = ({
       params.delete("storeOptions");
       params.delete("date");
       params.delete("current");
-      params.set("favoriteDrinks", JSON.stringify(favoriteDrinks));
-      params.set("drinksTried", JSON.stringify(drinksTried));
+      if (checkedList.includes("Include Favorites")) {
+        params.set("favoriteDrinks", JSON.stringify(favoriteDrinks));
+      }
+      if (checkedList.includes("Include Drinks Tried")) {
+        params.set("drinksTried", JSON.stringify(drinksTried));
+      }
       return `${window.location.origin}${
         location.pathname
       }?${params.toString()}`;
@@ -42,12 +51,20 @@ const TransferData: React.FC<TransferDataProps> = ({
       params.delete("storeOptions");
       params.delete("date");
       params.delete("current");
-      params.set("sharedfavoriteDrinks", JSON.stringify(favoriteDrinks));
-      params.set("shareddrinksTried", JSON.stringify(drinksTried));
+      if (checkedList.includes("Include Favorites")) {
+        params.set("sharedfavoriteDrinks", JSON.stringify(favoriteDrinks));
+      }
+      if (checkedList.includes("Include Drinks Tried")) {
+        params.set("shareddrinksTried", JSON.stringify(drinksTried));
+      }
       return `${window.location.origin}${
         location.pathname
       }?${params.toString()}`;
     }
+  };
+
+  const onChange = (list: CheckboxValueType[]) => {
+    setCheckedList(list);
   };
 
   const showModal = (mode: string) => {
@@ -170,6 +187,12 @@ const TransferData: React.FC<TransferDataProps> = ({
             : "If you would like to just share the drinks that you have tried to friends, just copy this URL to the new browser."}
         </p>
         <p>{getTransferLink()}</p>
+
+        <Checkbox.Group
+          options={plainOptions}
+          value={checkedList}
+          onChange={onChange}
+        />
       </Modal>
     </>
   );
