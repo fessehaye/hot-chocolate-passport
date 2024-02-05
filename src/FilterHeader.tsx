@@ -121,6 +121,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             placeholder="Location Areas"
             value={locationOptions}
             onChange={handleLocations}
+            maxTagCount={"responsive"}
             options={locationChoices}
           />
           <Select
@@ -129,6 +130,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             showSearch
             className="min-w-48 flex-1"
             placeholder="Stores"
+            maxTagCount={"responsive"}
             value={storeOptions}
             onChange={handleStores}
             options={storeChoices}
