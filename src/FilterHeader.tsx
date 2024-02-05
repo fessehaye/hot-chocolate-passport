@@ -7,11 +7,12 @@ import {
   type SelectProps,
 } from "antd";
 import React from "react";
-import type { Drink } from "./Home";
+import { DietaryOptions, type Drink } from "./types";
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 import type { DatePickerProps } from "antd";
 import dayjs from "dayjs";
 import type { RangePickerProps } from "antd/es/date-picker";
+import { useSearchParams } from "react-router-dom";
 
 interface FilterHeaderProps {
   drinks: Drink[];
@@ -26,6 +27,7 @@ interface FilterHeaderProps {
   dateString: string;
   setDateString: (dateString: string) => void;
   clearFilters: () => void;
+  drinksTried: number[];
 }
 
 const FilterHeader: React.FC<FilterHeaderProps> = ({
@@ -41,10 +43,13 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
   setDateString,
   clearFilters,
   dateString,
+  drinksTried,
 }) => {
   const disabledDate: RangePickerProps["disabledDate"] = (current) => {
     return current >= dayjs("02-14-2024") || current <= dayjs("01-13-2024");
   };
+
+  const [searchParams] = useSearchParams();
 
   const allCities = drinks.reduce((acc, drink) => {
     return [...acc, ...drink.cities];
@@ -70,11 +75,19 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
   };
 
   const plainOptions = [
-    "Stores with Vegan Options",
-    "Stores with Dairy Free Options",
-    "Stores with Gluten Free Options",
-    "Stores that are open after 5pm",
+    DietaryOptions.Vegan,
+    DietaryOptions.DairyFree,
+    DietaryOptions.GlutenFree,
+    DietaryOptions.Late,
   ];
+  if (
+    drinksTried &&
+    drinksTried.length > 0 &&
+    searchParams.get("current") !== "Tried"
+  ) {
+    plainOptions.push(DietaryOptions.NotTried);
+  }
+
   const handleLocations = (value: string[]) => {
     setLocationOptions(value);
   };

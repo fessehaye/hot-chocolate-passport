@@ -8,22 +8,7 @@ import FilterHeader from "./FilterHeader";
 import TransferData from "./TransferData";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useMatch, useSearchParams } from "react-router-dom";
-
-export interface Drink {
-  id: number;
-  storeName: string;
-  drinkName: string;
-  link: string;
-  description: string;
-  takeoutOnly: boolean;
-  startDate: string;
-  endDate: string;
-  cities: string[];
-  veganOption: boolean;
-  glutenFreeOption: boolean;
-  dairyFreeOption: boolean;
-  lateOption?: boolean;
-}
+import { DietaryOptions, Drink, Tabs } from "./types";
 
 const Home: React.FC = () => {
   const { isPending, error, data } = useQuery<Drink[]>({
@@ -128,7 +113,7 @@ const Home: React.FC = () => {
     },
   ];
   const [current, setCurrent] = [
-    searchParams.get("current") || "All",
+    searchParams.get("current") || Tabs.All,
     (current: string) => {
       setSearchParams(
         (params) => {
@@ -200,15 +185,15 @@ const Home: React.FC = () => {
   const items: MenuProps["items"] = [
     {
       label: "All Drinks",
-      key: "All",
+      key: Tabs.All,
     },
     {
       label: `Drinks You Tried (${drinksTried.length})`,
-      key: "Tried",
+      key: Tabs.Tried,
     },
     {
       label: `Favorites (${favoriteDrinks.length})`,
-      key: "Favorites",
+      key: Tabs.Favorites,
     },
   ];
 
@@ -234,14 +219,14 @@ const Home: React.FC = () => {
   if (sharedFavoriteDrinks.length > 0) {
     items.unshift({
       label: `Shared Favorites (${sharedFavoriteDrinks.length})`,
-      key: "SharedFavorites",
+      key: Tabs.SharedFavorites,
       icon: <ShareIcon />,
     });
   }
   if (sharedDrinksTried.length > 0) {
     items.unshift({
       label: `Shared Drinks Tried (${sharedDrinksTried.length})`,
-      key: "SharedTried",
+      key: Tabs.SharedTried,
       icon: <ShareIcon />,
     });
   }
@@ -273,14 +258,14 @@ const Home: React.FC = () => {
 
     const dietaryOptionsMatch =
       dietaryOptions.length === 0 ||
-      ((!dietaryOptions.includes("Stores with Vegan Options") ||
-        drink.veganOption) &&
-        (!dietaryOptions.includes("Stores with Gluten Free Options") ||
+      ((!dietaryOptions.includes(DietaryOptions.Vegan) || drink.veganOption) &&
+        (!dietaryOptions.includes(DietaryOptions.GlutenFree) ||
           drink.glutenFreeOption) &&
-        (!dietaryOptions.includes("Stores with Dairy Free Options") ||
+        (!dietaryOptions.includes(DietaryOptions.DairyFree) ||
           drink.dairyFreeOption) &&
-        (!dietaryOptions.includes("Stores that are open after 5pm") ||
-          drink?.lateOption));
+        (!dietaryOptions.includes(DietaryOptions.Late) || drink?.lateOption) &&
+        (!dietaryOptions.includes(DietaryOptions.NotTried) ||
+          drinksTried.includes(drink.id) === false));
 
     const locationOptionsMatch =
       locationOptions.length === 0 ||
@@ -294,12 +279,12 @@ const Home: React.FC = () => {
       (new Date(drink.startDate) <= new Date(dateString) &&
         new Date(drink.endDate) >= new Date(dateString));
     const favoriteDrinksMatch =
-      current === "All" ||
-      (current === "Favorites" && favoriteDrinks.includes(drink.id)) ||
-      (current === "Tried" && drinksTried.includes(drink.id)) ||
-      (current === "SharedFavorites" &&
+      current === Tabs.All ||
+      (current === Tabs.Favorites && favoriteDrinks.includes(drink.id)) ||
+      (current === Tabs.Tried && drinksTried.includes(drink.id)) ||
+      (current === Tabs.SharedFavorites &&
         sharedFavoriteDrinks.includes(drink.id)) ||
-      (current === "SharedTried" && sharedDrinksTried.includes(drink.id));
+      (current === Tabs.SharedTried && sharedDrinksTried.includes(drink.id));
 
     return (
       searchTextMatch &&
@@ -355,6 +340,7 @@ const Home: React.FC = () => {
           setDateString={setDateString}
           dateString={dateString}
           clearFilters={clearFilters}
+          drinksTried={drinksTried}
         />
         <DrinkGrid drinks={filteredDrinks} showDrawer={showDrawer} />
       </div>

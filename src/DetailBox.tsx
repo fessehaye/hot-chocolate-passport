@@ -1,7 +1,7 @@
 import { Drawer, Space, Tag, Flex, Button } from "antd";
 import React from "react";
-import type { Drink } from "./Home";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { Drink } from "./types";
 
 interface DetailBoxProps {
   selectedDrink: Drink | undefined;
@@ -77,7 +77,9 @@ const DetailBox: React.FC<DetailBoxProps> = ({
               {selectedDrink?.glutenFreeOption && (
                 <Tag color="processing">Store has Gluten Options</Tag>
               )}
-              {selectedDrink?.veganOption && <Tag color="processing">Store has Vegan Options</Tag>}
+              {selectedDrink?.veganOption && (
+                <Tag color="processing">Store has Vegan Options</Tag>
+              )}
               {selectedDrink?.dairyFreeOption && (
                 <Tag color="processing">Store has Dairy Options</Tag>
               )}

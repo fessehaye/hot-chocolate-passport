@@ -1,6 +1,6 @@
 import { Row, Col, Card, Space, Tag, Result } from "antd";
 import React from "react";
-import type { Drink } from "./Home";
+import { Drink } from "./types";
 
 interface DrinkGridProps {
   drinks: Drink[];
@@ -21,7 +21,12 @@ const DrinkGrid: React.FC<DrinkGridProps> = ({ drinks, showDrawer }) => {
 
   return (
     <div className="w-full">
-       {drinks.length > 0 && <p className="my-4">{drinks.length} {drinks.length == 1 ? "Drink": "Drinks"} Available within {uniqueStores.length} store{uniqueStores.length > 1 && 's'}.</p>}
+      {drinks.length > 0 && (
+        <p className="my-4">
+          {drinks.length} {drinks.length == 1 ? "Drink" : "Drinks"} Available
+          within {uniqueStores.length} store{uniqueStores.length > 1 && "s"}.
+        </p>
+      )}
       <Row gutter={[16, 16]}>
         {drinks.map((drink) => {
           const startDate = new Date(drink.startDate);
