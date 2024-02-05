@@ -1,14 +1,7 @@
----
-import '@/styles/globals.css';
-import Home from "@/components/Home.tsx";
-import type { Drink } from "@/components/Home.tsx";
-const res = await fetch('https://gist.githubusercontent.com/fessehaye/3d2f70ef5fc983087612d25e9f5fa586/raw/0701bc641fb390fc3e6cd5cccf394bfe39ddfc4d/drinks.json')
-const data = await res.json() as Drink[];
----
-
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
+  <head>
+    <meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
@@ -30,12 +23,11 @@ const data = await res.json() as Drink[];
 		<meta property="twitter:url" content="https://metatags.io/" />
 		<meta property="twitter:title" content="Hot Chocolate Passport" />
 		<meta property="twitter:description" content="Bookmark, Search and record the drinks you are trying for the 2024 greater vancouver hot chocolate festival. " />
-
-		<!-- Meta Tags Generated with https://metatags.io -->
-	</head>
-	<body class="bg-slate-100">
+  </head>
+  <body class="bg-slate-100">
 		<div class="container relative">
-			<Home drinks={data} client:only />
+      <div id="root"></div>
 		</div>
+    <script type="module" src="/src/main.tsx"></script>
 	</body>
 </html>

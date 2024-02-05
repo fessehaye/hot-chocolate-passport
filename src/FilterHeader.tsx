@@ -1,10 +1,17 @@
-import { DatePicker, Input, Select, Checkbox, Button, type SelectProps } from "antd";
+import {
+  DatePicker,
+  Input,
+  Select,
+  Checkbox,
+  Button,
+  type SelectProps,
+} from "antd";
 import React from "react";
 import type { Drink } from "./Home";
-import type { CheckboxValueType } from 'antd/es/checkbox/Group';
-import type { DatePickerProps } from 'antd';
-import dayjs from 'dayjs';
-import type { RangePickerProps } from 'antd/es/date-picker';
+import type { CheckboxValueType } from "antd/es/checkbox/Group";
+import type { DatePickerProps } from "antd";
+import dayjs from "dayjs";
+import type { RangePickerProps } from "antd/es/date-picker";
 
 interface FilterHeaderProps {
   drinks: Drink[];
@@ -18,7 +25,7 @@ interface FilterHeaderProps {
   setStoreOptions: (storeOptions: string[]) => void;
   dateString: string;
   setDateString: (dateString: string) => void;
-    clearFilters: () => void;
+  clearFilters: () => void;
 }
 
 const FilterHeader: React.FC<FilterHeaderProps> = ({
@@ -35,8 +42,8 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
   clearFilters,
   dateString,
 }) => {
-  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
-    return  current >= dayjs("02-14-2024") || current <= dayjs("01-13-2024");
+  const disabledDate: RangePickerProps["disabledDate"] = (current) => {
+    return current >= dayjs("02-14-2024") || current <= dayjs("01-13-2024");
   };
 
   const allCities = drinks.reduce((acc, drink) => {
@@ -75,8 +82,11 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
     setStoreOptions(value);
   };
 
-  const onDateChange: DatePickerProps["onChange"] = (_:any, dateString:string) => {
-    setDateString(dateString);
+  const onDateChange: DatePickerProps["onChange"] = (
+    _,
+    dateString: string | string[]
+  ) => {
+    setDateString(dateString as string);
   };
 
   return (
@@ -88,14 +98,21 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
           className="w-full lg:w-48 "
           value={searchText}
           allowClear
-          onChange={(e:any) => setSearchText(e.target.value)}
-          onPressEnter={(e:any) => e.target.blur()}
+          onChange={(e) => setSearchText(e.target.value)}
+          onPressEnter={(e) => e.currentTarget.blur()}
         />
         <Button className="ml-2 hidden lg:block" onClick={() => clearFilters()}>
-            Clear All Filters
+          Clear All Filters
         </Button>
         <div className="lg:ml-auto flex gap-2 flex-wrap lg:flex-nowrap w-full lg:w-auto">
-          <DatePicker className="min-w-40 flex-1" format={"MM-DD-YYYY"} inputReadOnly onChange={onDateChange} disabledDate={disabledDate} value={dateString ? dayjs(dateString):  undefined} />
+          <DatePicker
+            className="min-w-40 flex-1"
+            format={"MM-DD-YYYY"}
+            inputReadOnly
+            onChange={onDateChange}
+            disabledDate={disabledDate}
+            value={dateString ? dayjs(dateString) : undefined}
+          />
           <Select
             mode="multiple"
             allowClear
@@ -116,15 +133,18 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             onChange={handleStores}
             options={storeChoices}
           />
-          <Button className="block lg:hidden w-full" onClick={() => clearFilters()}>
+          <Button
+            className="block lg:hidden w-full"
+            onClick={() => clearFilters()}
+          >
             Clear Filters
-        </Button>
+          </Button>
         </div>
       </div>
       <div className="mt-4 flex items-center flex-wrap gap-y-2 lg:flex-nowrap">
         <Checkbox.Group
           options={plainOptions}
-          defaultValue={dietaryOptions}
+          value={dietaryOptions}
           onChange={onCheckChange}
         />
       </div>
