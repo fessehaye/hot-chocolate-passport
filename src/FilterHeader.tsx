@@ -29,6 +29,7 @@ interface FilterHeaderProps {
   clearFilters: () => void;
   drinksTried: number[];
 }
+const MAX_COUNT = 6;
 
 const FilterHeader: React.FC<FilterHeaderProps> = ({
   drinks,
@@ -143,6 +144,7 @@ const FilterHeader: React.FC<FilterHeaderProps> = ({
             showSearch
             className="min-w-48 flex-1"
             placeholder="Stores"
+            maxCount={MAX_COUNT}
             maxTagCount={"responsive"}
             value={storeOptions}
             onChange={handleStores}
