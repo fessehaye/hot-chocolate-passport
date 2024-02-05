@@ -190,11 +190,11 @@ const Home: React.FC = () => {
   ]);
 
   const showDrawer = (drink: Drink) => {
-    navigate(`/drink/${drink.id}`);
+    navigate(`/drink/${drink.id}?${searchParams.toString()}`);
   };
 
   const onClose = () => {
-    navigate(-1);
+    navigate(`/?${searchParams.toString()}`);
   };
 
   const items: MenuProps["items"] = [
