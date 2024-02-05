@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useMatch, useSearchParams } from "react-router-dom";
 import { DietaryOptions, Drink, Tabs } from "./types";
 
-const Home: React.FC = () => {
+function Home() {
   const { isPending, error, data } = useQuery<Drink[]>({
     queryKey: ["repoData"],
     queryFn: () =>
@@ -346,6 +346,6 @@ const Home: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Home;
