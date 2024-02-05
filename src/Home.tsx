@@ -273,14 +273,14 @@ const Home: React.FC = () => {
 
     const dietaryOptionsMatch =
       dietaryOptions.length === 0 ||
-      (dietaryOptions.includes("Stores with Vegan Options") &&
-        drink.veganOption) ||
-      (dietaryOptions.includes("Stores with Gluten Free Options") &&
-        drink.glutenFreeOption) ||
-      (dietaryOptions.includes("Stores with Dairy Free Options") &&
-        drink.dairyFreeOption) ||
-      (dietaryOptions.includes("Stores that are open after 5pm") &&
-        drink?.lateOption);
+      ((!dietaryOptions.includes("Stores with Vegan Options") ||
+        drink.veganOption) &&
+        (!dietaryOptions.includes("Stores with Gluten Free Options") ||
+          drink.glutenFreeOption) &&
+        (!dietaryOptions.includes("Stores with Dairy Free Options") ||
+          drink.dairyFreeOption) &&
+        (!dietaryOptions.includes("Stores that are open after 5pm") ||
+          drink?.lateOption));
 
     const locationOptionsMatch =
       locationOptions.length === 0 ||
