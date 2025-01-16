@@ -8,7 +8,7 @@ const Header: React.FC = () => {
         className="no-underline hover:text-red-700 transition text-black"
       >
         <h1 className="text-2xl font-bold tracking-tight">
-          Hot Chocolate Passport
+          Hot Chocolate Passport (NEW Site TBA)
         </h1>
       </a>
       <p className="my-2">
